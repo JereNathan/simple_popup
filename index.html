@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="/ejemplos/javascript-curso/script.js"></script>
+<link rel="stylesheet" type="text/css" href="/ejemplos/javascript-curso/alerts/style.css"/>
+<style>
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  width: 160px;
+  background-color: rgba(0,0,0,0.8);
+  color: #fff;
+  text-align: left;
+  font-size: 12px;
+  border-radius: 4px;
+  padding: 8px 10px 8px 10px;
+  position: absolute;
+  -webkit-animation: fadeIn .4s;
+  animation: fadeIn .4s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+</style>
+</head>
+<body>
+<div class="bodyLs">
+<p id="extend_PopUp" class="popup">On mouse over here</p>
+</div>
+<script>
+function popUps(elementID,text,type){
+	/* get the variables */
+	var popUpExtendId = $d.querySelector(elementID),
+		  popupElement = $.create("div"),
+	   	popupElementText = $.txt(text);
+
+
+	/* set attributes, get id's and add into div's */
+	$.set(popupElement,"class","popuptext");
+	$.app(popupElement,popupElementText);
+
+
+	/* addEventListener's */
+	$.addevent(popUpExtendId,"mouseover",function(){
+		$.app(popUpExtendId,popupElement);
+
+		var classType = $d.querySelector(".popuptext"),
+        extendLength = popUpExtendId.value;
+
+    /* ----- RGBA FUNCTION ---- */
+    function rgba(color){
+      if(color == "red"){
+        return "rgba(255,0,0,.7)";
+      }else if(color == "green"){
+        return "rgba(0,255,0,.7)";
+      }else if(color == "blue"){
+        return "rgba(0,0,255,.7)";
+      }else if(color == "black"){
+        return "rgba(0,0,0,.7)";
+      }
+    };
+    /* ------------------------ */
+
+    /* ----- PADDING ----- */
+    var paddingRgba = "8px 10px 10px 35px";
+    /* ------------------- */
+
+
+    if(type == 1){
+      classType.style.background = rgba("red")+" url(warning_sym.png)no-repeat";
+      classType.style.padding = paddingRgba;
+      classType.style.backgroundSize = "25px 25px";
+      classType.style.backgroundPosition = "5px";
+      return;
+    }else if(type == 2){
+      classType.style.background = rgba("green")+" url(done_sym.png)no-repeat";
+      classType.style.backgroundSize = "25px 25px";
+      classType.style.backgroundPosition = "5px";
+      classType.style.padding = paddingRgba;
+      return;
+    }else if(type == 0 || type == null){
+      classType.style.backgroundColor = rgba("black");return;
+    }
+
+
+	});
+
+	$.addevent(popUpExtendId,"mouseout",function(){
+		$.del(popUpExtendId,popupElement);
+	});
+};
+
+
+popUps("#extend_PopUp","Hello World! this is a example of popup",2);
+</script>
+
+</body>
+</html>
